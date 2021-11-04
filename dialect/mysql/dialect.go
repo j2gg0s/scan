@@ -32,8 +32,8 @@ func New() *Dialect {
 
 var Default = New()
 
-func Scan(rows *sql.Rows, dest interface{}) error {
-	return scan.Scan(Default, &wrapper{rows: rows}, dest)
+func Scan(rows *sql.Rows, dest ...interface{}) error {
+	return scan.Scan(Default, &wrapper{rows: rows}, dest...)
 }
 
 type wrapper struct {

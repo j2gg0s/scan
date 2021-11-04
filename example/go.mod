@@ -1,6 +1,6 @@
 module github.com/j2gg0s/scan/example
 
-go 1.17
+go 1.16
 
 replace github.com/j2gg0s/scan => ../
 

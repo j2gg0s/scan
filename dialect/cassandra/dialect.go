@@ -31,8 +31,8 @@ func New() *Dialect {
 
 var Default = New()
 
-func Scan(iter *gocql.Iter, dest interface{}) error {
-	return scan.Scan(Default, &wrapper{iter: iter, scanner: iter.Scanner()}, dest)
+func Scan(iter *gocql.Iter, dest ...interface{}) error {
+	return scan.Scan(Default, &wrapper{iter: iter, scanner: iter.Scanner()}, dest...)
 }
 
 type wrapper struct {

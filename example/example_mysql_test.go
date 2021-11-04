@@ -62,9 +62,30 @@ func ExampleMySQL() {
 		printProjects(dest)
 	}
 
+	for _, dest := range [][]interface{}{
+		[]interface{}{&[]string{}, &[]string{}, &[]int{}, &[]int{}},
+	} {
+		rows, err := db.QueryContext(
+			ctx,
+			`SELECT org, project, star, fork FROM project WHERE org = ? ORDER BY project`,
+			"kubernetes",
+		)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		if err := scan.Scan(rows, dest...); err != nil {
+			log.Fatal(err)
+		}
+		printProjects(dest)
+	}
+
 	// output:
 	// uptrace bun 374 22
 	// uptrace bun 374 22
+	// kubernetes client-go 5300 2100
+	// kubernetes example 4500 3400
+	// kubernetes kubernetes 82200 30100
 	// kubernetes client-go 5300 2100
 	// kubernetes example 4500 3400
 	// kubernetes kubernetes 82200 30100
